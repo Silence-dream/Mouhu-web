@@ -62,6 +62,8 @@ export default defineComponent({
 .column-list-item {
   .box-item {
     margin: 20px 0;
+    min-height: 240px;
+    max-height: 240px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   }

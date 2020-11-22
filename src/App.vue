@@ -1,6 +1,8 @@
 <template>
   <el-container>
-    <el-header>Header</el-header>
+    <el-header>
+      <GloballHeader></GloballHeader>
+    </el-header>
     <el-main>
       <ColumnList :list="list"></ColumnList>
     </el-main>
@@ -9,6 +11,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+// 引入头部组件
+import GloballHeader from "@/components/GloballHeader.vue";
 // 引入文章组件
 import ColumnList, { ColumnProps } from "@/components/ColumnList.vue";
 
@@ -58,6 +62,7 @@ export default defineComponent({
     };
   },
   components: {
+    GloballHeader,
     ColumnList
   }
 });
