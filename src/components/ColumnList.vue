@@ -1,16 +1,22 @@
 <template>
-  <ul>
-    <li v-for="item in list" :key="item.id">
+  <el-row>
+    <el-col
+      class="column-list-item"
+      :span="8"
+      v-for="item in list"
+      :key="item.id"
+    >
       <img :src="item.avatar" />
       <h5>{{ item.title }}</h5>
       <p>{{ item.description }}</p>
       <a href="javascript:;">进入专栏</a>
-    </li>
-  </ul>
+    </el-col>
+  </el-row>
 </template>
 
 <script lang="ts">
-interface ColumnProps {
+// 导出数据结构
+export interface ColumnProps {
   id: number;
   title: string;
   description: string;
@@ -30,4 +36,8 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.column-list-item:nth-child(2n + 1) {
+  background: pink;
+}
+</style>
