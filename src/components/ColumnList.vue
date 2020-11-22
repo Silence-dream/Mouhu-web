@@ -3,7 +3,7 @@
     <el-col
       class="column-list-item"
       :span="8"
-      v-for="item in list"
+      v-for="item in columnList"
       :key="item.id"
     >
       <div class="box-item">
@@ -21,10 +21,12 @@
 export interface ColumnProps {
   id: number;
   title: string;
+  // 描述
   description: string;
-  avatar: string;
+  // 头像
+  avatar?: string;
 }
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, computed } from "vue";
 
 export default defineComponent({
   name: "ColumnList",
@@ -34,6 +36,21 @@ export default defineComponent({
       type: Array as PropType<ColumnProps[]>,
       required: true
     }
+  },
+  setup(props) {
+    // console.log(props.list);
+    const columnList = computed(() => {
+      // 如果传过来的数据没有头像那么就为他添加一个默认的头像
+      return props.list.map(item => {
+        if (!item.avatar) {
+          item.avatar = require("@/assets/column.jpg");
+        }
+        return item;
+      });
+    });
+    return {
+      columnList
+    };
   }
 });
 </script>
@@ -51,6 +68,9 @@ export default defineComponent({
   img {
     display: block;
     margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 30px;
   }
   h5 {
     color: #303133;
