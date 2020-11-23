@@ -1,7 +1,7 @@
 <template>
   <el-container>
-    <el-header>
-      <GloballHeader></GloballHeader>
+    <el-header height="70px">
+      <GlobalHeader :user="currenUser"></GlobalHeader>
     </el-header>
     <el-main>
       <ColumnList :list="list"></ColumnList>
@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 // 引入头部组件
-import GloballHeader from "@/components/GloballHeader.vue";
+import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
 // 引入文章组件
 import ColumnList, { ColumnProps } from "@/components/ColumnList.vue";
 
@@ -54,15 +54,21 @@ const testData: ColumnProps[] = [
       "http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5ee22dd58b3c4520912b9470.jpg?x-oss-process=image/resize,m_pad,h_100,w_100"
   }
 ];
+// 测试用户数据
+const currenUser: UserProps = {
+  isLogin: false
+};
+
 export default defineComponent({
   name: "App",
   setup() {
     return {
-      list: testData
+      list: testData,
+      currenUser
     };
   },
   components: {
-    GloballHeader,
+    GlobalHeader,
     ColumnList
   }
 });

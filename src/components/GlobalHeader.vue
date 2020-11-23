@@ -5,9 +5,12 @@
         <a href="javascript:;">某乎专栏</a>
       </h1>
     </div>
-    <div class="login">
+    <div class="login" v-if="user.isLogin">
       <el-button type="primary" class="login-btn">登陆</el-button>
       <el-button type="primary" class="login-btn">注册</el-button>
+    </div>
+    <div class="login" v-else>
+      <el-button type="primary" class="login-btn">你好 XX用户</el-button>
     </div>
   </header>
 </template>
@@ -20,12 +23,15 @@ export interface UserProps {
   id?: number;
 }
 export default defineComponent({
-  name: "GloballHeader",
+  name: "GlobalHeader",
   props: {
     user: {
       type: Object as PropType<UserProps>,
       required: true
     }
+  },
+  setup(props) {
+    console.log(props);
   }
 });
 </script>
@@ -34,7 +40,8 @@ export default defineComponent({
 @import "./public/css/function";
 
 header {
-  background-color: pink;
+  background-color: #0084ff;
+  padding: 0 20px;
   line-height: 70px;
   height: 70px;
   @include clearfix;
