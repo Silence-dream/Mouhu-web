@@ -1,4 +1,6 @@
 <template>
+  <!-- 获取dom元素测试 -->
+  <!--  <h1 ref="test">12312</h1>-->
   <el-container>
     <el-header height="70px">
       <!-- 头部组件 -->
@@ -12,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, onUnmounted } from "vue";
 // 引入头部组件
 import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
 // 引入文章组件
@@ -65,9 +67,18 @@ const currentUser: UserProps = {
 export default defineComponent({
   name: "App",
   setup() {
+    // 这样可以获取到一个dom元素
+    // const test = ref<null | HTMLElement>(null);
+    onMounted(() => {
+      console.log("onMouted");
+    });
+    onUnmounted(() => {
+      console.log("onUnmounted");
+    });
     return {
       list: testData,
       currentUser: currentUser
+      // test
     };
   },
   components: {

@@ -12,20 +12,19 @@
     </div>
     <!-- if 登录成功 -->
     <div class="login" v-else>
-      <el-button type="primary" class="login-btn"
-        >你好 {{ user.name }} 用户</el-button
-      >
+      <Dropdown :title="`欢迎你 ${user.name}`"></Dropdown>
     </div>
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+// 导入下拉菜单组件
+import Dropdown from "@/components/Dropdown.vue";
 // 用户数据结构接口
 export interface UserProps {
   isLogin: boolean;
   name?: string;
-  /* 用户id */
   id?: number;
 }
 export default defineComponent({
@@ -38,6 +37,9 @@ export default defineComponent({
   },
   setup(props) {
     console.log(props);
+  },
+  components: {
+    Dropdown
   }
 });
 </script>
