@@ -5,12 +5,16 @@
         <a href="javascript:;">某乎专栏</a>
       </h1>
     </div>
+    <!-- if 没有登录 -->
     <div class="login" v-if="user.isLogin">
       <el-button type="primary" class="login-btn">登陆</el-button>
       <el-button type="primary" class="login-btn">注册</el-button>
     </div>
+    <!-- if 登录成功 -->
     <div class="login" v-else>
-      <el-button type="primary" class="login-btn">你好 XX用户</el-button>
+      <el-button type="primary" class="login-btn"
+        >你好 {{ user.name }} 用户</el-button
+      >
     </div>
   </header>
 </template>
@@ -21,6 +25,7 @@ import { defineComponent, PropType } from "vue";
 export interface UserProps {
   isLogin: boolean;
   name?: string;
+  /* 用户id */
   id?: number;
 }
 export default defineComponent({

@@ -1,9 +1,11 @@
 <template>
   <el-container>
     <el-header height="70px">
-      <GlobalHeader :user="currenUser"></GlobalHeader>
+      <!-- 头部组件 -->
+      <GlobalHeader :user="currentUser"></GlobalHeader>
     </el-header>
     <el-main>
+      <!-- 专栏组件 -->
       <ColumnList :list="list"></ColumnList>
     </el-main>
   </el-container>
@@ -55,8 +57,9 @@ const testData: ColumnProps[] = [
   }
 ];
 // 测试用户数据
-const currenUser: UserProps = {
-  isLogin: false
+const currentUser: UserProps = {
+  isLogin: false,
+  name: "罗志祥"
 };
 
 export default defineComponent({
@@ -64,7 +67,7 @@ export default defineComponent({
   setup() {
     return {
       list: testData,
-      currenUser
+      currentUser: currentUser
     };
   },
   components: {
