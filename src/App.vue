@@ -1,7 +1,7 @@
 <template>
   <!-- 获取dom元素测试 -->
   <!--  <h1 ref="test">12312</h1>-->
-  <el-container>
+  <el-container class="container">
     <el-header height="70px">
       <!-- 头部组件 -->
       <GlobalHeader :user="currentUser"></GlobalHeader>

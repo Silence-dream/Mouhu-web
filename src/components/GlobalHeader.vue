@@ -48,20 +48,19 @@ export default defineComponent({
 @import "./public/css/function";
 
 header {
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  align-items: center;
   background-color: #0084ff;
   padding: 0 20px;
-  line-height: 70px;
-  height: 70px;
-  @include clearfix;
   .title {
-    float: left;
     a {
       font-size: 20px;
       color: #ffffff;
     }
   }
   .login {
-    float: right;
     .login-btn {
       font-size: 16px;
       border-color: #ffffff;
