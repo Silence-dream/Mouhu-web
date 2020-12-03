@@ -35,9 +35,6 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
-    console.log(props);
-  },
   components: {
     Dropdown
   }

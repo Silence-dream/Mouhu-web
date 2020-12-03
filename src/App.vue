@@ -9,6 +9,38 @@
     <el-main>
       <!-- 专栏组件 -->
       <ColumnList :list="list"></ColumnList>
+      <!-- 表单 -->
+      <label class="for-label">邮箱地址</label>
+      <ValidateInput id="test" :rule="emailRules"></ValidateInput>
+      <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+          <!-- <div id="emailHelp" class="form-text">
+            We'll never share your email with anyone else.
+          </div> -->
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">密码</label>
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+          <label class="form-check-label" for="exampleCheck1"
+            >Check me out</label
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">登录</button>
+      </form>
     </el-main>
   </el-container>
 </template>
@@ -19,7 +51,8 @@ import { defineComponent, onMounted, onUnmounted } from "vue";
 import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
 // 引入文章组件
 import ColumnList, { ColumnProps } from "@/components/ColumnList.vue";
-
+// 引入表单验证组件
+import ValidateInput, { RulesProp } from "./components/ValidateInput.vue";
 // 测试文章列表数据
 const testData: ColumnProps[] = [
   {
@@ -75,15 +108,22 @@ export default defineComponent({
     onUnmounted(() => {
       console.log("onUnmounted");
     });
+
+    const emailRules: RulesProp = [
+      { type: "required", message: "邮箱必须填入" },
+      { type: "email", message: "必须填入正确的邮箱格式" }
+    ];
     return {
       list: testData,
-      currentUser: currentUser
+      currentUser: currentUser,
+      emailRules
       // test
     };
   },
   components: {
     GlobalHeader,
-    ColumnList
+    ColumnList,
+    ValidateInput
   }
 });
 </script>
