@@ -1,8 +1,14 @@
 <template>
   <div class="validate-input-container pb-3">
-    <input class="form-control" @blur="ValidateInput" v-model="inputRef.val" />
-    {{ inputRef.error }}
-    <span class="invalid-feedback"></span>
+    <input
+      class="form-control"
+      :class="{ 'is-invalid': inputRef.error }"
+      @blur="ValidateInput"
+      v-model="inputRef.val"
+    />
+    <span class="invalid-feedback" v-if="inputRef.error">
+      {{ inputRef.message }}
+    </span>
   </div>
 </template>
 
@@ -34,6 +40,7 @@ export default defineComponent({
         // true 验证通过 false验证失败
         const allPassed = props.rule.every(item => {
           let passed = true;
+          inputRef.message = item.message;
           // 通过 every 只要一个条件不满足就是终止循环的特点来进行表单验证
           switch (item.type) {
             case "required":
@@ -47,8 +54,9 @@ export default defineComponent({
           }
           return passed;
         });
-        console.log(allPassed);
-        inputRef.error = allPassed;
+        inputRef.error = !allPassed;
+        // console.log(allPassed);
+        // console.log("inputRef.error", inputRef.error);
       }
     };
     return {
