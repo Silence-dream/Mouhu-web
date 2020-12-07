@@ -11,7 +11,13 @@
       <ColumnList :list="list"></ColumnList>
       <!-- 表单 -->
       <label class="for-label">邮箱地址</label>
-      <ValidateInput id="test" :rule="emailRules"></ValidateInput>
+      <ValidateInput
+        id="test"
+        v-model="emailVal"
+        :rule="emailRules"
+        placeholder
+      ></ValidateInput>
+      {{ emailVal }}
       <form>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
@@ -46,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted } from "vue";
+import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 // 引入头部组件
 import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
 // 引入文章组件
@@ -102,6 +108,7 @@ export default defineComponent({
   setup() {
     // 这样可以获取到一个dom元素
     // const test = ref<null | HTMLElement>(null);
+    const emailVal = ref();
     onMounted(() => {
       console.log("onMouted");
     });
@@ -116,7 +123,8 @@ export default defineComponent({
     return {
       list: testData,
       currentUser: currentUser,
-      emailRules
+      emailRules,
+      emailVal
       // test
     };
   },
