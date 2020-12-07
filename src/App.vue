@@ -9,9 +9,9 @@
     <el-main>
       <!-- 专栏组件 -->
       <ColumnList :list="list"></ColumnList>
-      <!-- 表单 -->
+      <!-- 表单
       <label class="for-label">邮箱地址</label>
-      <ValidateInput id="test" :rule="emailRules"></ValidateInput>
+      <ValidateInput id="test" :rule="emailRules"></ValidateInput> -->
       <form>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
@@ -122,8 +122,7 @@ export default defineComponent({
   },
   components: {
     GlobalHeader,
-    ColumnList,
-    ValidateInput
+    ColumnList
   }
 });
 </script>
