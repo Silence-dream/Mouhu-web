@@ -7,6 +7,8 @@ import "element-plus/lib/theme-chalk/index.css";
 import App from "./App.vue";
 import router from "./router";
 import store from "@/store";
+import axios from "axios";
+axios.defaults.baseURL = "http://api.vikingship.xyz/api";
 
 const app = createApp(App);
 

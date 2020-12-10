@@ -1,17 +1,16 @@
 <template>
-  <div>ColumnList</div>
   <el-row :gutter="30">
     <el-col
       class="column-list-item"
       :span="8"
       v-for="item in columnList"
-      :key="item.id"
+      :key="item._id"
     >
       <div class="box-item">
-        <img :src="item.avatar" />
+        <img :src="item.avatar.url" />
         <h5>{{ item.title }}</h5>
         <p>{{ item.description }}</p>
-        <router-link :to="`/column/${item.id}`">进入专栏</router-link>
+        <router-link :to="`/column/${item._id}`">进入专栏</router-link>
       </div>
     </el-col>
   </el-row>
@@ -19,47 +18,51 @@
 
 <script lang="ts">
 // 导出数据结构
-export interface ColumnProps {
-  id: number;
-  title: string;
-  // 描述
+interface ColumnProps {
+  _id: string;
+  createdAt: string;
+  avatar: AvatarProps;
+  featured: boolean;
+  author: string;
   description: string;
-  // 头像
-  avatar?: string;
+  title: string;
+  key: string;
 }
-import { defineComponent, PropType, computed } from "vue";
+interface AvatarProps {
+  _id?: string;
+  url?: string;
+}
+export type ColumnPropsArr = ColumnProps[];
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
+import { GlobalDataProps } from "@/store";
 
 export default defineComponent({
   name: "ColumnList",
-  props: {
-    list: {
-      //这里特别有一点，我们现在的 Array 是没有类型的，只是一个数组，我们希望它是一个 ColomnProps 的数组，那么我们是否可以使用了类型断言直接写成 ColomnProps[]，显然是不行的 ，因为 Array 是一个数组的构造函数不是类型，我们可以使用 PropType 这个方法，它接受一个泛型，讲 Array 构造函数返回传入的泛型类型。
-      type: Array as PropType<ColumnProps[]>,
-      required: true
-    }
-  },
-  setup(props) {
-    // console.log(props.list);
-    const columnList = computed(() => {
-      // 如果传过来的数据没有头像那么就为他添加一个默认的头像
-      return props.list.map(item => {
-        if (!item.avatar) {
-          item.avatar = require("@/assets/column.jpg");
-        }
-        return item;
-      });
-    });
+  setup() {
+    const Store = useStore<GlobalDataProps>();
+    // 获取文章列表数据
+    Store.dispatch("fetchColumnList");
+    const columnList = computed(() => Store.state.columnList);
+    console.log(columnList);
     return {
       columnList
     };
+    // console.log(props.list);
+    // const columnList = computed(() => {
+    //   // 如果传过来的数据没有头像那么就为他添加一个默认的头像
+    //   return props.list.map(item => {
+    //     if (!item.avatar) {
+    //       item.avatar = require("@/assets/column.jpg");
+    //     }
+    //     return item;
+    //   });
+    // });
   }
 });
 </script>
 
 <style scoped lang="scss">
-.column-list-item:nth-child(2n + 1) {
-  //background: pink;
-}
 .column-list-item {
   .box-item {
     margin: 20px 0;

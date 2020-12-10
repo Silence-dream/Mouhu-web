@@ -9,60 +9,30 @@
     <el-main>
       <!-- 路由 -->
       <router-view></router-view>
-      <!-- 专栏组件 -->
-      <ColumnList :list="list"></ColumnList>
     </el-main>
+    <el-footer>
+      <footer class="text-cent er py-4 text-secondary bg-light mt-6">
+        <small>
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">© 2020 者也专栏</li>
+            <li class="list-inline-item">课程</li>
+            <li class="list-inline-item">文档</li>
+            <li class="list-inline-item">联系</li>
+            <li class="list-inline-item">更多</li>
+          </ul>
+        </small>
+      </footer>
+    </el-footer>
   </el-container>
 </template>
 
 <script lang="ts">
 import { useStore } from "vuex";
-import { defineComponent, onMounted, onUnmounted } from "vue";
+import { defineComponent, onMounted, onUnmounted, computed } from "vue";
 // 引入头部组件
 import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
-// 引入文章组件
-import ColumnList, { ColumnProps } from "@/components/ColumnList.vue";
-// 引入表单验证组件
-import { RulesProp } from "./components/ValidateInput.vue";
 import { GlobalDataProps } from "@/store";
-// 测试文章列表数据
-const testData: ColumnProps[] = [
-  {
-    id: 1,
-    title: "test1的专栏",
-    description: "这是的test1专栏，有一段非常有意思的简介，可以更新一下欧",
-    avatar:
-      "http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5ee22dd58b3c4520912b9470.jpg?x-oss-process=image/resize,m_pad,h_100,w_100"
-  },
-  {
-    id: 2,
-    title: "test2的专栏",
-    description: "这是的test2专栏，有一段非常有意思的简介，可以更新一下欧"
-    // avatar:
-    //   "http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5ee22dd58b3c4520912b9470.jpg?x-oss-process=image/resize,m_pad,h_100,w_100"
-  },
-  {
-    id: 3,
-    title: "test1的专栏",
-    description: "这是的test1专栏，有一段非常有意思的简介，可以更新一下欧",
-    avatar:
-      "http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5ee22dd58b3c4520912b9470.jpg?x-oss-process=image/resize,m_pad,h_100,w_100"
-  },
-  {
-    id: 4,
-    title: "test2的专栏",
-    description: "这是的test2专栏，有一段非常有意思的简介，可以更新一下欧",
-    avatar:
-      "http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5ee22dd58b3c4520912b9470.jpg?x-oss-process=image/resize,m_pad,h_100,w_100"
-  },
-  {
-    id: 5,
-    title: "test2的专栏",
-    description: "这是的test2专栏，有一段非常有意思的简介，可以更新一下欧",
-    avatar:
-      "http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5ee22dd58b3c4520912b9470.jpg?x-oss-process=image/resize,m_pad,h_100,w_100"
-  }
-];
+
 // 测试用户数据
 const currentUser: UserProps = {
   isLogin: false,
@@ -72,30 +42,12 @@ const currentUser: UserProps = {
 export default defineComponent({
   name: "App",
   setup() {
-    // 这样可以获取到一个dom元素
-    // const test = ref<null | HTMLElement>(null);
-    onMounted(() => {
-      console.log("onMouted");
-    });
-    onUnmounted(() => {
-      console.log("onUnmounted");
-    });
-    const store = useStore<GlobalDataProps>();
-    console.log(store.state.msg);
-    const emailRules: RulesProp = [
-      { type: "required", message: "邮箱必须填入" },
-      { type: "email", message: "必须填入正确的邮箱格式" }
-    ];
     return {
-      list: testData,
-      currentUser: currentUser,
-      emailRules
-      // test
+      currentUser: currentUser
     };
   },
   components: {
-    GlobalHeader,
-    ColumnList
+    GlobalHeader
   }
 });
 </script>

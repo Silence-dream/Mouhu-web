@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-// import ColumnList from "@/components/ColumnList.vue";
+import Home from "@/views/Home.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: "/",
-  //   name: "ColumnList",
-  //   component: ColumnList
-  // },
+  {
+    path: "/",
+    name: "Home",
+    component: Home
+  },
   {
     path: "/column/:id",
     name: "ColumnDetail",
