@@ -7,7 +7,7 @@
       :key="item._id"
     >
       <div class="box-item">
-        <img :src="item.avatar.url" />
+        <img :src="item.avatar ? item.avatar.url : ''" />
         <h5>{{ item.title }}</h5>
         <p>{{ item.description }}</p>
         <router-link :to="`/column/${item._id}`">进入专栏</router-link>
@@ -17,22 +17,6 @@
 </template>
 
 <script lang="ts">
-// 导出数据结构
-interface ColumnProps {
-  _id: string;
-  createdAt: string;
-  avatar: AvatarProps;
-  featured: boolean;
-  author: string;
-  description: string;
-  title: string;
-  key: string;
-}
-interface AvatarProps {
-  _id?: string;
-  url?: string;
-}
-export type ColumnPropsArr = ColumnProps[];
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import { GlobalDataProps } from "@/store";
@@ -43,26 +27,28 @@ export default defineComponent({
     const Store = useStore<GlobalDataProps>();
     // 获取文章列表数据
     Store.dispatch("fetchColumnList");
-    const columnList = computed(() => Store.state.columnList);
-    console.log(columnList);
+    // const columnList = computed(() => Store.state.columnList);
+    // console.log(columnList);
+
+    const columnList = computed(() => {
+      // 如果传过来的数据没有头像那么就为他添加一个默认的头像
+      return Store.state.columnList.map(item => {
+        if (item.avatar) {
+          if (!item.avatar.url) {
+            item.avatar.url = require("@/assets/column.jpg");
+          }
+        }
+        return item;
+      });
+    });
     return {
       columnList
     };
-    // console.log(props.list);
-    // const columnList = computed(() => {
-    //   // 如果传过来的数据没有头像那么就为他添加一个默认的头像
-    //   return props.list.map(item => {
-    //     if (!item.avatar) {
-    //       item.avatar = require("@/assets/column.jpg");
-    //     }
-    //     return item;
-    //   });
-    // });
   }
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .column-list-item {
   .box-item {
     margin: 20px 0;

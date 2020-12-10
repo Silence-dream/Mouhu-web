@@ -27,15 +27,14 @@
 </template>
 
 <script lang="ts">
-import { useStore } from "vuex";
-import { defineComponent, onMounted, onUnmounted, computed } from "vue";
+// import {} from "vuex";
+import { defineComponent } from "vue";
 // 引入头部组件
 import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
-import { GlobalDataProps } from "@/store";
 
 // 测试用户数据
 const currentUser: UserProps = {
-  isLogin: false,
+  isLogin: true,
   name: "罗志祥"
 };
 

@@ -2,13 +2,19 @@
   <header>
     <div class="title">
       <h1>
-        <a href="javascript:;">某乎专栏</a>
+        <router-link to="/">
+          <a href="javascript:;">某乎专栏</a>
+        </router-link>
       </h1>
     </div>
     <!-- if 没有登录 -->
     <div class="login" v-if="user.isLogin">
-      <el-button type="primary" class="login-btn">登陆</el-button>
-      <el-button type="primary" class="login-btn">注册</el-button>
+      <router-link to="/login">
+        <el-button type="primary" class="login-btn">登陆</el-button>
+      </router-link>
+      <router-link to="/signup">
+        <el-button type="primary" class="login-btn">注册</el-button>
+      </router-link>
     </div>
     <!-- if 登录成功 -->
     <div class="login" v-else>
