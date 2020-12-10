@@ -1,10 +1,20 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+// import ColumnList from "@/components/ColumnList.vue";
+
 const routes: Array<RouteRecordRaw> = [
   // {
-  //   path: "/home",
-  //   name: "Home",
-  //   component: () => import("@/views/Home.vue")
-  // }
+  //   path: "/",
+  //   name: "ColumnList",
+  //   component: ColumnList
+  // },
+  {
+    path: "/column/:id",
+    name: "ColumnDetail",
+    component: () =>
+      import(
+        /* webpackChunkName: "ColumnDetail" */ "@/components/ColumnDetail.vue"
+      )
+  }
   // {
   //   path: "/about",
   //   name: "About",

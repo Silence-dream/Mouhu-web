@@ -1,4 +1,5 @@
 <template>
+  <div>ColumnList</div>
   <el-row :gutter="30">
     <el-col
       class="column-list-item"
@@ -10,7 +11,7 @@
         <img :src="item.avatar" />
         <h5>{{ item.title }}</h5>
         <p>{{ item.description }}</p>
-        <a href="javascript:;">进入专栏</a>
+        <router-link :to="`/column/${item.id}`">进入专栏</router-link>
       </div>
     </el-col>
   </el-row>

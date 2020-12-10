@@ -49,6 +49,11 @@ const currentUser: UserProps = {
 };
 ```
 
+## 记录
+[x] 安装vuex
+[]  使用路由前置守卫
+[]  使用路由元信息完成权限管理
+
 
 ## 关于
 [element-plus-ui](https://element-plus.gitee.io/#/zh-CN/)
