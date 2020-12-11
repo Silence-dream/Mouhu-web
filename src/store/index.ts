@@ -8,8 +8,11 @@ export interface GlobalDataProps {
 const store = createStore<GlobalDataProps>({
   state() {
     return {
+      // 专栏列表
       columnList: [],
+      // 专栏详情
       columnDetail: {},
+      // 属于专栏的文章
       postList: []
     };
   },
@@ -40,8 +43,10 @@ const store = createStore<GlobalDataProps>({
         context.commit("setColumnDetail", data.data);
       }
     },
-    async fetchPostList(context, id: string) {
-      const { data } = await axios.get(`/columns/${id}`);
+    async fetchPostList(context, obj: FetchPostListPropsParams) {
+      const { data } = await axios.get(`/columns/${obj.id}/posts`, {
+        params: { page: obj.page, size: obj.size }
+      });
       if (data.code === 0) {
         context.commit("setPostList", data.data.list);
       }
@@ -83,3 +88,9 @@ interface PostListProps {
   key: number;
 }
 type PostListPropsArr = PostListProps[];
+
+interface FetchPostListPropsParams {
+  id: string;
+  page?: string | "1";
+  size?: string | "5";
+}

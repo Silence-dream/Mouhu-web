@@ -17,7 +17,7 @@
       </div>
     </div>
     <!-- 专栏列表 -->
-    <!-- <post-list :list="list"></post-list> -->
+    <PostList :list="list"></PostList>
   </div>
 </template>
 
@@ -26,6 +26,7 @@ import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import { GlobalDataProps } from "@/store";
 import { useRoute } from "vue-router";
+import PostList from "@/components/PostList.vue";
 export default defineComponent({
   name: "ColumnDetail",
   setup() {
@@ -34,11 +35,18 @@ export default defineComponent({
     const { id } = Route.params;
     id as string;
     Store.dispatch("fetchColumnDetail", id);
-    console.log(Store.state.columnDetail);
+    Store.dispatch("fetchPostList", { id: id });
+    console.log("Store.state.postList", Store.state.postList);
+    // 专栏详情数据
     const column = computed(() => Store.state.columnDetail);
+    const list = computed(() => Store.state.postList);
     return {
-      column
+      column,
+      list
     };
+  },
+  components: {
+    PostList
   }
 });
 </script>
