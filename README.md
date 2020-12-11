@@ -1,5 +1,29 @@
 # huhu
 
+使用Vue3模仿慕课知乎专栏写的知乎专栏
+
+-   知乎专栏
+-   typescript 
+-   axios
+-   element-plus
+-   bootstrap
+-   vuex
+-   vue-router
+-   vue3.0
+-   带有注释解析
+
+
+
+...还在施工中.....
+
+项目运行需要解决前端跨域问题
+
+[推荐使用chrome插件]([XSwitch - Chrome 网上应用店 (google.com)](https://chrome.google.com/webstore/detail/xswitch/idkjhjggpffolpidfkikidcokdkdaogg))
+
+这样既可解决跨域问题
+
+喜欢的话给个start吧
+
 ## Project setup
 ```
 yarn install
