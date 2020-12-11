@@ -8,9 +8,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "@/store";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { useStore } from "vuex";
 import { ElLoading } from "element-plus";
-const Store = useStore();
 
 axios.defaults.baseURL = "http://api.vikingship.xyz/api";
 // let loadingInstance = ElLoading.service({});
@@ -25,25 +23,26 @@ axios.interceptors.request.use((config: AxiosRequestConfig) => {
   // });
   return config;
 });
-axios.interceptors.response.use((config: AxiosResponse) => {
-  // setTimeout(() => {
-  // loadingInstance.close();
-  // }, 200);
-  return config;
-});
+axios.interceptors.response.use(
+  (config: AxiosResponse) => {
+    // setTimeout(() => {
+    // loadingInstance.close();
+    // }, 200);
+    return config;
+  },
+  e => {
+    const { data } = e.response;
+    // console.log(data);
+    store.state.error.message = data.error;
+    store.state.error.status = true;
+    return Promise.reject(data.error);
+  }
+);
 // axios.interceptors.request.use(config => {
 //   store.commit('setLoading', true)
 //   store.commit('setError', { status: false, message: '' })
 //   return config
 // })
-
-// 验证登陆
-const token = localStorage.getItem("token");
-
-if (token) {
-  axios.defaults.headers.Authorization = ` Bearer ${token}`;
-  Store.dispatch("fetchGetInfo");
-}
 
 app
   .use(router)

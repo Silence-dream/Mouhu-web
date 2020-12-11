@@ -35,7 +35,7 @@ export default defineComponent({
   setup() {
     const Store = useStore<GlobalDataProps>();
     const user = computed(() => Store.state.user);
-    console.log(user);
+    // console.log(user);
     return {
       user
     };

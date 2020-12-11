@@ -28,14 +28,31 @@
 
 <script lang="ts">
 // import {} from "vuex";
-import { defineComponent } from "vue";
+import { computed, defineComponent, watch } from "vue";
 // 引入头部组件
 import GlobalHeader from "@/components/GlobalHeader.vue";
-
+import { useStore } from "vuex";
+import { GlobalDataProps } from "@/store";
+import axios from "axios";
 export default defineComponent({
   name: "App",
   setup() {
-    return {};
+    const Store = useStore<GlobalDataProps>();
+    const error = computed(() => Store.state.error);
+
+    // 验证登陆
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios.defaults.headers.Authorization = ` Bearer ${token}`;
+      Store.dispatch("fetchGetInfo");
+    }
+    if (error.value.status) {
+      console.log(1);
+    }
+    return {
+      error
+    };
   },
   components: {
     GlobalHeader

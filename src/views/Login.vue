@@ -49,7 +49,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState } from "vuex";
+import { ElMessage } from "element-plus";
+
 export default defineComponent({
   name: "Login",
   data() {
@@ -81,11 +82,18 @@ export default defineComponent({
         // 验证通过
         if (valid) {
           const { email, password } = this.ruleForm;
-          (this as any).$store.dispatch("fetchGetToken", {
-            email: email,
-            password: password
-          });
-          this.$router.push("/");
+          (this as any).$store
+            .dispatch("fetchGetToken", {
+              email: email,
+              password: password
+            })
+            .then(() => {
+              ElMessage({ message: "登陆成功", type: "success" });
+              this.$router.push("/");
+            })
+            .catch((error: any) => {
+              ElMessage({ message: error, type: "error" });
+            });
         }
       });
     }

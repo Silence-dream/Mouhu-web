@@ -6,6 +6,11 @@ export interface GlobalDataProps {
   postList: PostListPropsArr;
   user: UserProps;
   token: string;
+  error: GlobalError;
+}
+interface GlobalError {
+  status: boolean;
+  message?: string;
 }
 const store = createStore<GlobalDataProps>({
   state() {
@@ -20,7 +25,8 @@ const store = createStore<GlobalDataProps>({
       user: {
         isLogin: false || Boolean(localStorage.getItem("token"))
       },
-      token: localStorage.getItem("token") || ""
+      token: localStorage.getItem("token") || "",
+      error: { status: false }
     };
   },
   mutations: {

@@ -8,14 +8,16 @@
       <el-dropdown-menu style="width: 100%;">
         <el-dropdown-item>新建文章</el-dropdown-item>
         <el-dropdown-item>管理账户</el-dropdown-item>
-        <el-dropdown-item>退出登陆</el-dropdown-item>
+        <el-dropdown-item @click="Loggedout">退出登陆</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
+import { GlobalDataProps } from "@/store";
 export default defineComponent({
   name: "Dropdown",
   props: {
@@ -23,6 +25,17 @@ export default defineComponent({
       type: String,
       required: true
     }
+  },
+  setup() {
+    // 暂时的退出功能
+    const Store = useStore<GlobalDataProps>();
+    const Loggedout = function() {
+      localStorage.removeItem("token");
+      Store.state.user.isLogin = false;
+    };
+    return {
+      Loggedout
+    };
   }
 });
 </script>
