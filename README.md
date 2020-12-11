@@ -18,7 +18,7 @@
 
 项目运行需要解决前端跨域问题
 
-[推荐使用chrome插件]([XSwitch - Chrome 网上应用店 (google.com)](https://chrome.google.com/webstore/detail/xswitch/idkjhjggpffolpidfkikidcokdkdaogg))
+[推荐使用chrome插件](https://chrome.google.com/webstore/detail/xswitch/idkjhjggpffolpidfkikidcokdkdaogg)
 
 这样既可解决跨域问题
 
