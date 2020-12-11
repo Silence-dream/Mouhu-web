@@ -74,8 +74,9 @@ export default defineComponent({
     };
   },
   methods: {
-    submitForm(ruleForm: never) {
-      this.$refs[ruleForm].validate((valid: boolean) => {
+    submitForm(ruleForm: string) {
+      console.log(this.$refs[ruleForm]);
+      (this.$refs[ruleForm] as any).validate((valid: boolean) => {
         // 验证通过
         if (valid) {
           console.log(this.ruleForm.email);

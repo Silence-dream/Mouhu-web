@@ -73,10 +73,29 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+// import { Vue, Component } from "vue-property-decorator";
+// @Component
+// export class Signup extends Vue {
+//   $refs!: {
+//     ruleForm: HTMLFormElement;
+//   };
+// }
+interface RuleForm {
+  ruleForm: {
+    email: string;
+    name: string;
+    passworld: string;
+    passworld2: string;
+  };
+}
 export default defineComponent({
   name: "Signup",
-  data() {
-    const validatePass2 = (rule, value, callback) => {
+  data<RuleForm>() {
+    const validatePass2 = (
+      rule: any,
+      value: string,
+      callback: CallableFunction
+    ) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
       } else if (value !== this.ruleForm.passworld) {
@@ -118,8 +137,8 @@ export default defineComponent({
     };
   },
   methods: {
-    submitForm(ruleForm: never) {
-      this.$refs[ruleForm].validate((valid: boolean) => {
+    submitForm(ruleForm: string) {
+      (this.$refs[ruleForm] as any).validate((valid: boolean) => {
         // 验证通过
         if (valid) {
           console.log(this.ruleForm.email);
