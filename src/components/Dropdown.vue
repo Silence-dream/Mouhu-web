@@ -18,6 +18,9 @@
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
 import { GlobalDataProps } from "@/store";
+import { ElMessage } from "element-plus";
+
+import axios from "axios";
 export default defineComponent({
   name: "Dropdown",
   props: {
@@ -32,6 +35,8 @@ export default defineComponent({
     const Loggedout = function() {
       localStorage.removeItem("token");
       Store.state.user.isLogin = false;
+      delete axios.defaults.headers.Authorization;
+      ElMessage({ message: "退出成功", type: "success" });
     };
     return {
       Loggedout
