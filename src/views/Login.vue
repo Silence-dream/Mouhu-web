@@ -23,10 +23,10 @@
     </el-row>
     <el-row>
       <el-col :span="8" :offset="8">
-        <el-form-item label="密码" prop="passworld">
+        <el-form-item label="密码" prop="password">
           <el-input
             type="password"
-            v-model="ruleForm.passworld"
+            v-model="ruleForm.password"
             placeholder="请输入密码"
             autocomplete="off"
           ></el-input>
@@ -49,13 +49,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapState } from "vuex";
 export default defineComponent({
   name: "Login",
   data() {
     return {
       ruleForm: {
         email: "",
-        passworld: ""
+        password: ""
       },
       rules: {
         email: [
@@ -66,7 +67,7 @@ export default defineComponent({
             trigger: "blur"
           }
         ],
-        passworld: [
+        password: [
           { required: true, message: "请输入密码", trigger: "blur" },
           { min: 3, max: 18, message: "长度在 3 到 18 个字符", trigger: "blur" }
         ]
@@ -75,12 +76,16 @@ export default defineComponent({
   },
   methods: {
     submitForm(ruleForm: string) {
-      console.log(this.$refs[ruleForm]);
+      // console.log(this.$refs[ruleForm]);
       (this.$refs[ruleForm] as any).validate((valid: boolean) => {
         // 验证通过
         if (valid) {
-          console.log(this.ruleForm.email);
-          console.log(this.ruleForm.passworld);
+          const { email, password } = this.ruleForm;
+          (this as any).$store.dispatch("fetchGetToken", {
+            email: email,
+            password: password
+          });
+          this.$router.push("/");
         }
       });
     }

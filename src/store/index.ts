@@ -4,6 +4,8 @@ export interface GlobalDataProps {
   columnList: ColumnPropsArr;
   columnDetail: ColumnProps;
   postList: PostListPropsArr;
+  user: UserProps;
+  token: string;
 }
 const store = createStore<GlobalDataProps>({
   state() {
@@ -13,7 +15,12 @@ const store = createStore<GlobalDataProps>({
       // 专栏详情
       columnDetail: {},
       // 属于专栏的文章
-      postList: []
+      postList: [],
+      // 用户是否登陆
+      user: {
+        isLogin: false || Boolean(localStorage.getItem("token"))
+      },
+      token: localStorage.getItem("token") || ""
     };
   },
   mutations: {
@@ -28,6 +35,20 @@ const store = createStore<GlobalDataProps>({
     // 获取属于专栏的文章
     setPostList(state, response) {
       state.postList = response;
+    },
+    // 获取属于专栏的文章
+    setToken(state, response) {
+      state.token = response;
+      // 设置本地存储
+      localStorage.setItem("token", response);
+      // 设置用户登录
+      state.user.isLogin = true;
+    },
+    // 设置用户信息
+    setUser(state, response: UserProps) {
+      state.user._id = response._id;
+      state.user.column = response.column;
+      state.user.nickName = response.nickName;
     }
   },
   actions: {
@@ -50,6 +71,24 @@ const store = createStore<GlobalDataProps>({
       if (data.code === 0) {
         context.commit("setPostList", data.data.list);
       }
+    },
+    // 登陆
+    async fetchGetToken(context, userInfo: UserInfo) {
+      const { data } = await axios.post("/user/login", {
+        email: userInfo.email,
+        password: userInfo.password
+      });
+      context.commit("setToken", data.data.token);
+      axios.defaults.headers.Authorization = `Bearer ${context.state.token}`;
+      context.dispatch("fetchGetInfo");
+    },
+    // 获取用户信息
+    async fetchGetInfo(context) {
+      // 获取用户信息
+      let getuserInfo = await axios.get("/user/current");
+      getuserInfo = getuserInfo.data.data;
+      // console.log("getuserInfo", getuserInfo);
+      context.commit("setUser", getuserInfo);
     }
   }
 });
@@ -93,4 +132,18 @@ interface FetchPostListPropsParams {
   id: string;
   page?: string | "1";
   size?: string | "5";
+}
+
+// 用户登录
+export interface UserProps {
+  isLogin: boolean;
+  nickName?: string;
+  column?: string;
+  _id?: string;
+}
+
+// 登陆
+interface UserInfo {
+  readonly email: string;
+  readonly password: string;
 }

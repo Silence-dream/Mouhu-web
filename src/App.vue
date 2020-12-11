@@ -4,7 +4,7 @@
   <el-container class="container">
     <el-header height="70px">
       <!-- 头部组件 -->
-      <GlobalHeader :user="currentUser"></GlobalHeader>
+      <GlobalHeader></GlobalHeader>
     </el-header>
     <el-main>
       <!-- 路由 -->
@@ -30,20 +30,12 @@
 // import {} from "vuex";
 import { defineComponent } from "vue";
 // 引入头部组件
-import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
-
-// 测试用户数据
-const currentUser: UserProps = {
-  isLogin: true,
-  name: "罗志祥"
-};
+import GlobalHeader from "@/components/GlobalHeader.vue";
 
 export default defineComponent({
   name: "App",
   setup() {
-    return {
-      currentUser: currentUser
-    };
+    return {};
   },
   components: {
     GlobalHeader

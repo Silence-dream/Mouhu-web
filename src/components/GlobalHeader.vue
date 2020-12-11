@@ -7,8 +7,12 @@
         </router-link>
       </h1>
     </div>
-    <!-- if 没有登录 -->
+    <!-- if 登录成功 -->
     <div class="login" v-if="user.isLogin">
+      <Dropdown :title="`欢迎你 ${user.nickName}`"></Dropdown>
+    </div>
+    <!-- if 没有登录 -->
+    <div class="login" v-else>
       <router-link to="/login">
         <el-button type="primary" class="login-btn">登陆</el-button>
       </router-link>
@@ -16,30 +20,25 @@
         <el-button type="primary" class="login-btn">注册</el-button>
       </router-link>
     </div>
-    <!-- if 登录成功 -->
-    <div class="login" v-else>
-      <Dropdown :title="`欢迎你 ${user.name}`"></Dropdown>
-    </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { computed, defineComponent } from "vue";
+import { GlobalDataProps } from "@/store";
 // 导入下拉菜单组件
 import Dropdown from "@/components/Dropdown.vue";
-// 用户数据结构接口
-export interface UserProps {
-  isLogin: boolean;
-  name?: string;
-  id?: number;
-}
+import { useStore } from "vuex";
+
 export default defineComponent({
   name: "GlobalHeader",
-  props: {
-    user: {
-      type: Object as PropType<UserProps>,
-      required: true
-    }
+  setup() {
+    const Store = useStore<GlobalDataProps>();
+    const user = computed(() => Store.state.user);
+    console.log(user);
+    return {
+      user
+    };
   },
   components: {
     Dropdown
